@@ -1,0 +1,50 @@
+<div *ngIf="isLoading; else content">
+    <p>Loading product details...</p>
+  </div>
+  
+  <ng-template #content>
+    <div *ngIf="error; else productDetails">
+      <p>{{ error }}</p>
+    </div>
+  
+    <ng-template #productDetails>
+      <div class="auth-container position-relative m-auto my-5 py-5 px-3 bg-white shadow-sm rounded-3 border border-light-subtle d-flex flex-column align-items-center">
+        <!-- Product Image -->
+        <div class="mb-3 text-center">
+          <img [src]="product.image" alt="{{ product.name }}" class="img-fluid rounded" *ngIf="product.image; else noImage">
+          <ng-template #noImage>
+            <div class="text-center py-3 bg-light rounded">
+              <p class="mb-0 text-muted">No image available</p>
+            </div>
+          </ng-template>
+        </div>
+  
+        <!-- Product Details -->
+        <div class="mb-2 border-bottom border-light-subtle pb-2 text-center">
+          <h2 class="mb-0 h4">{{ product.name }}</h2>
+        </div>
+        <div class="mb-3 text-center">
+          <p class="mb-0">{{ product.description }}</p>
+        </div>
+        <div class="mb-4 text-center">
+          <p class="mb-0">Price: {{ product.price | currency: currencyMap[product.currency] }}</p>
+        </div>
+        <div class="mb-4 text-center">
+          <p class="mb-0">Seller: {{ product.sellerUsername }}</p>
+        </div>
+        <div class="mb-4 text-center">
+          <p class="mb-0">Currency: {{ product.currency }}</p>
+        </div>
+  
+        <!-- Buttons -->
+        <div class="d-flex flex-column align-items-center w-100">
+          <div class="mb-2 w-50">
+            <button class="btn btn-sm btn-primary w-100" (click)="navigateToAllProduct()">Go back</button>
+          </div>
+          <div class="mb-0 w-50">
+            <button class="btn btn-sm btn-success w-100" (click)="addToCart(product)">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>

@@ -1,0 +1,17 @@
+.auth-container {
+    max-width: 600px; // Limit the width of the container
+    width: 100%; // Ensure it takes full width on smaller screens
+  }
+  
+  .img-fluid {
+    max-height: 300px; // Limit the height of the product image
+    object-fit: cover; // Ensure the image covers the area without distortion
+  }
+  
+  .text-center {
+    text-align: center; // Center-align text
+  }
+  
+  .btn {
+    margin: 5px 0; // Add spacing between buttons
+  }

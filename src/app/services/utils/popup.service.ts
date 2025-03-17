@@ -24,7 +24,7 @@ export class PopupService {
       text: message,
       allowEscapeKey: false,
       didOpen() {
-        Swal.showLoading()
+        Swal.showLoading(null);
       }
     })
   }
@@ -49,4 +49,45 @@ export class PopupService {
   }
 
 
+    // New method to show a popup with two buttons
+    showErrorWithActions(
+      title: string,
+      message: string,
+      registerCallback: () => void,
+      tryAgainCallback: () => void
+    ): void {
+      Swal.fire({
+        title: title,
+        text: message,
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: 'Registrar nuevo perfil',
+        cancelButtonText: 'Intentar de nuevo',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          registerCallback(); // Call the register callback
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          tryAgainCallback(); // Call the try again callback
+        }
+      });
+  }
+    // New method to show a confirmation popup with two buttons
+    showConfirmationWithActions(
+      title: string,
+      message: string,
+      confirmButtonText: string = 'Seguro',
+      cancelButtonText: string = 'Cancelar'
+    ): Promise<boolean> {
+      return Swal.fire({
+        title: title,
+        text: message,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: confirmButtonText,
+        cancelButtonText: cancelButtonText,
+      }).then((result) => {
+        return result.isConfirmed; // Returns true if "Seguro" is clicked, false if "Cancelar" is clicked
+      });
+  }
+  
 }

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="d-flex flex-column align-items-center">
+  <h2>My Products</h2>
+  <button class="btn btn-primary mb-3" (click)="openAddProductModal()">Add New Product</button>
+  </div>
+  <!-- Product List -->
+  <div *ngIf="existingProducts.length > 0; else noProducts">
+    <div class="row mx-2 mt-3">
+      <div *ngFor="let product of existingProducts" class="col-12 col-md-6 col-lg-4 mb-4 px-2">
+        <div class="auth-container position-relative m-auto py-5 px-3 bg-white shadow-sm rounded-3 border border-light-subtle text-center d-flex flex-column align-items-center">
+          <!-- Product Image -->
+          <div class="mb-3">
+            <img [src]="product.image" alt="{{ product.name }}" class="img-fluid rounded" *ngIf="product.image; else noImage">
+            <ng-template #noImage>
+              <div class="text-center py-3 bg-light rounded">
+                <p class="mb-0 text-muted">No image available</p>
+              </div>
+            </ng-template>
+          </div>
+
+          <!-- Product Details -->
+          <div class="mb-2 border-bottom border-light-subtle pb-2 w-100">
+            <h2 class="mb-0 h4">{{ product.name }}</h2>
+          </div>
+          <div class="mb-2 w-100">
+            <p class="mb-0">Price: {{ product.price | currency: currencyMap[product.currency] }}</p>
+          </div>
+          <div class="mb-0 w-100 mb-2">
+            <button class="btn btn-sm btn-info w-100" >Edit Producto</button>
+          </div>
+          <div class="mb-0 w-100">
+            <!-- <button class="btn btn-sm btn-primary w-100" (click)="deleteProduct(product.id)">Delete Producto</button> -->
+            <button class="btn btn-sm btn-primary w-100" (click)="deleteProductWithConfirmation(product.id)">Delete Producto</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- No Products Found -->
+  <ng-template #noProducts>
+    <p>No products found.</p>
+  </ng-template>
+</div>

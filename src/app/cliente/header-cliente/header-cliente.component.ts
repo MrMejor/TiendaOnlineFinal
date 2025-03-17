@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-cliente',
@@ -8,5 +9,13 @@ import { Component } from '@angular/core';
   styleUrl: './header-cliente.component.scss'
 })
 export class HeaderClienteComponent {
+  constructor(private router: Router) {}
 
+  navigateToRegister() {
+    this.router.navigate(['/registro']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }

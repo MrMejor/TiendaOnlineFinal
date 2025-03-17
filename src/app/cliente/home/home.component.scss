@@ -1,0 +1,24 @@
+header {
+    width: 100%;
+    max-width: 100vw; // Prevents overflow
+    overflow-x: hidden;
+  
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .btn-white {
+      background-color: var(--bs-white);
+      white-space: nowrap;
+    }
+  
+    // Mobile-specific styles
+    @media (max-width: 768px) {
+      nav {
+        display: none; // Hide buttons in header for mobile
+      }
+    }
+  }
+  

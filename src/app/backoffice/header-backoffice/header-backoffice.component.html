@@ -1,37 +1,54 @@
 <header class="row align-items-center bg-dark position-sticky top-0 px-4 m-auto">
-
   <div class="col-6 d-flex flex-row align-items-center column-gap-3">
-    <div class="imagen-perfil position-relative rounded-circle bg-white d-flex align-items-center justify-content-center"> <!-- Contenedor de la imagen de perfil -->
-      <i class="bi bi-person-fill text-black fs-4"></i>
-      <span class="rounded-circle border border-2 position-absolute"></span>
+    <!-- Profile Image -->
+    <div class="position-relative">
+      <div class="imagen-perfil position-relative rounded-circle bg-white d-flex align-items-center justify-content-center clickable" (click)="toggleItem('isActiveProfile')">
+        <i class="bi bi-person-fill text-black fs-4"></i>
+        <span class="rounded-circle border border-2 position-absolute"></span>
+      </div>
+      <!-- Profile Dropdown -->
+      <div class="user-profile-container bg-white shadow rounded-3 p-4 position-absolute start-0 mt-2" *ngIf="isActiveItems.isActiveProfile">
+        <h2 class="h5 mb-3">Mi Perfil</h2>
+        <div class="user-info">
+          <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+          <p><strong>Nombre:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+          <p><strong>Rol:</strong> {{ user.role }}</p>
+        </div>
+      </div>
     </div> <!-- fin-imagen-perfil -->
-    <div class="position-relative"> <!-- Contenedor de las notificaciones (campana) -->
+
+    <!-- Notifications -->
+    <div class="position-relative">
       <i class="bi bi-bell-fill text-white fs-5" (click)="toggleItem('isActiveNotification')"></i>
-      <span class="position-absolute notify rounded-circle small d-flex align-items-center justify-content-center text-white">5</span>
-      <app-tab-notification *ngIf="isActiveItems.isActiveNotification"></app-tab-notification>
+      <span class="position-absolute notify rounded-circle small d-flex align-items-center justify-content-center text-white">1</span>
+      <div class="notification-dropdown" *ngIf="isActiveItems.isActiveNotification">
+        <app-tab-notification></app-tab-notification>
+      </div>
     </div> <!-- fin-notificaciones -->
-    <div> <!-- Contenedor del menú cuadrado -->
+
+    <!-- Grid Menu -->
+    <div>
       <i class="bi bi-grid-3x3-gap-fill text-white fs-5"></i>
-    </div><!-- fin-menu-cuadrado -->
-    <div> <!-- Contenedor de ajustes -->
+    </div> <!-- fin-menu-cuadrado -->
+
+    <!-- Settings -->
+    <div>
       <i class="bi bi-gear-fill text-white fs-5" (click)="toggleItem('isActiveSettings')"></i>
     </div> <!-- fin-ajustes -->
   </div>
 
   <div class="col-6 d-flex flex-row align-items-center justify-content-end py-3 column-gap-3">
-    <div class="position-relative rounded-pill overflow-hidden search-container"> <!-- buscador -->
+    <!-- Search Bar -->
+    <div class="position-relative rounded-pill overflow-hidden search-container">
       <i class="bi bi-search position-absolute icon-search bg-white d-flex align-items-center justify-content-center"></i>
       <input type="text" class="form-control w-100 text-end" placeholder="Buscar..">
     </div> <!-- // fin-buscador -->
-    <div class="icon-list-container"> <!-- menu -->
+
+    <!-- Menu Icon -->
+    <div class="icon-list-container">
       <i class="bi bi-list text-white fs-5" (click)="toggleLogo()"></i>
     </div> <!-- // fin-menu -->
-    <div class="position-relative logo-container d-flex align-items-center justify-content-center column-gap-3"> <!-- logo -->
-      <span class="text-white animate-width" *ngIf="isActive">Tienda Online</span>
-      <img src="/logo.svg" alt="">
-    </div> <!-- // fin-logo -->
   </div>
-
 </header>
 
 <app-settings *ngIf="isActiveItems.isActiveSettings"></app-settings>

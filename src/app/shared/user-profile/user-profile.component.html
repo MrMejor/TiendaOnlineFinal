@@ -1,0 +1,20 @@
+<div class="user-profile-container position-relative m-auto my-5 py-5 px-3 bg-white shadow-sm rounded-3 border border-light-subtle">
+  <div class="mb-2 border-bottom border-light-subtle pb-2">
+    <h2 class="mb-0 h5">Mi Perfil</h2>
+  </div>
+
+  <div class="user-info">
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Firt name:</strong> {{ user.firstName }} </p>
+    <p><strong>Last name:</strong> {{ user.lastName }}</p>
+    <p><strong>Rol:</strong> {{ user.role }}</p>
+    <p><strong>Address:</strong> {{ user.address }}</p>
+  </div>
+
+  <button class="btn btn-sm btn-info w-100 mt-3" (click)="navigateToChangePassword()">
+    Edit, your details.
+  </button>
+  <button class="btn btn-sm btn-primary w-100 mt-3" (click)="navigateToChangePassword()">
+    Reset Your Password.
+  </button>
+</div>

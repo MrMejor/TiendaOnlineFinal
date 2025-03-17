@@ -1,17 +1,21 @@
-<!-- Header del Back-office-->
-<app-header-backoffice></app-header-backoffice>
+<!-- Header del Back-office -->
+<header>
+  <app-header-backoffice></app-header-backoffice>
+</header>
 
-<!--Contenedor padre-->
-<div class="web-container" [class.collapsed]="!isActiveSidebar">
+<main>
+  <!-- Contenedor padre -->
+  <div class="web-container">
 
-  <!-- Contenedor hijo donde se cargará el contenido de cada página del backoffice -->
-  <div>
-    <router-outlet></router-outlet>
+    <!-- Contenedor hijo donde se cargará el contenido de cada página del backoffice -->
+    <div class="main-content" [ngStyle]="{'margin-right': isActiveSidebar && !isMobile ? '225px' : '0'}">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- Contenedor donde guardaremos el sidebar -->
+    <div class="sidebar-container" [class.collapsed]="!isActiveSidebar" [class.mobile-open]="isMobile && isActiveSidebar">
+      <app-sidebar></app-sidebar>
+    </div>
   </div>
-
-  <!-- Contenedor donde guardaremos el sidebar -->
-  <div>
-    <app-sidebar></app-sidebar>
-  </div>
-</div>
-
+</main>
+<!-- <app-cart *ngIf="cartService.isCartVisible$ | async"></app-cart> -->

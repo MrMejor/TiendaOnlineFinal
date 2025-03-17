@@ -1,0 +1,28 @@
+main {
+    min-height: calc(100vh - 23vh); /* Adjust based on header and footer heights */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px 0;
+  }
+// Form Styling - Responsive & Improved
+form {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    max-width: 600px;
+    margin: auto;
+  
+    @media (max-width: 768px) {
+      width: 90%;  // More space for mobile screens
+      padding: 20px; // Reduce padding to fit better
+    }
+  
+    @media (max-width: 480px) {
+      width: 100%; // Full width for very small screens
+      padding: 15px;
+    }
+  }
+  

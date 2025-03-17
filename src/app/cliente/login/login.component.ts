@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {CredentialsService} from '../../services/auth/credentials.service';
 import {LoginInterface} from '../../services/interfaces/auth';
 import {TokenService} from '../../services/auth/token.service';
-import {Router} from '@angular/router';
+import {Router, ActivatedRoute} from '@angular/router';
 import {UseStateService} from '../../services/auth/use-state.service';
 import {PopupService} from '../../services/utils/popup.service';
 
@@ -17,8 +17,6 @@ import {PopupService} from '../../services/utils/popup.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
-
   loginForm: FormGroup;
 
   constructor(
@@ -27,7 +25,8 @@ export class LoginComponent {
     private tokenService: TokenService,
     private router: Router,
     private useStateService: UseStateService,
-    private popupService: PopupService
+    private popupService: PopupService,
+    private route: ActivatedRoute
   ) {
     this.loginForm = this.formBuilder.group({
       username: ['', [Validators.required]],
@@ -35,40 +34,66 @@ export class LoginComponent {
     })
   }
 
-  submit() {
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
-      next: (data) => {
-        this.popupService.loader("Cargando...", "Espere un momento");
-
-        setTimeout(() => {
-          this.tokenService.saveTokens(data.token, "234325423423")
-          this.useStateService.save(data.username, data.role)
-          this.popupService.close();
-          this.router.navigate(['/app/control-panel']);
-        }, 1500)
-
-      },
-      error: err => {
-        let message;
-        if (err.error == "Invalid password") {
-          message = "Contraseña incorrecta, inténtelo de nuevo."
-        }
-        else if (err.error == "User not found") {
-          message = "El usuario no existe. Compruebe los datos o registrate en la plataforma"
-        }
-        else {
-          message = err.error;
-        }
-
-        this.popupService.showMessage(
-          'Ups ha ocurrido un error', message, 'error'
-        );
+  ngOnInit(): void {
+    // Retrieve username from query parameters
+    this.route.queryParams.subscribe((params) => {
+      if (params['username']) {
+        this.loginForm.patchValue({ username: params['username'] });
       }
-    })
+    });
   }
-
-}
+  
+    submit() {
+      if (this.loginForm.invalid) {
+        return;
+      }
+  
+      this.popupService.loader("Cargando...", "Espere un momento");
+  
+      this.credentialsService.login(this.loginForm.value as LoginInterface).subscribe({
+        next: (data) => {
+          this.tokenService.saveTokens(data.token, "234325423423");
+          this.useStateService.save(data.username, data.role);
+  
+          // Log saved data
+          console.log('Access Token:', this.tokenService.getAccessToken());
+          console.log('Username:', this.useStateService.getUsername());
+          console.log('Role:', this.useStateService.getRole());
+  
+          this.popupService.close();
+  
+          // Redirect based on role
+          if (data.role === 'ADMIN') {
+            this.router.navigate(['/admin/control-panel']);
+          } else if (data.role === 'CLIENT') {
+            this.router.navigate(['/client/tienda']); // Redirect client users to their homepage
+          } else if (data.role === 'SELLER') {
+            this.router.navigate(['/seller/add-producto']); // Redirect client users to their homepage
+          }else {
+            this.router.navigate(['/']); // Fallback for unknown roles
+          }
+        },
+        error: (err) => {
+          this.popupService.close();
+          let message;
+  
+          if (err.error == "401") {
+            message = "Contraseña incorrecta, inténtelo de nuevo.";
+          } else if (err.error == 'User not found') {
+            message = 'El usuario no existe. ¿Desea registrarse?';
+            this.popupService.showErrorWithActions(
+              'Ups, ha ocurrido un error',
+              message,
+              () => this.router.navigate(['/registro']), // Register callback
+              () => { } // Try again callback (do nothing, stay on the same page)
+            );
+          } else {
+            message = err.error;
+            this.popupService.showMessage(
+              'Ups ha ocurrido un error', message, 'error'
+            );
+          }
+        },
+      });
+    }
+  }

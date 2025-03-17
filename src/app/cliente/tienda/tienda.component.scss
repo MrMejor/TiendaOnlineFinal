@@ -1,0 +1,39 @@
+/* tienda.component.scss */
+.auth-container {
+  max-width: 100%; /* Allow the container to shrink on smaller screens */
+  margin: 10px auto; /* Reduce margin for smaller screens */
+  padding: 15px; /* Reduce padding for smaller screens */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Custom adjustments for mobile */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 10px; /* Further reduce padding for mobile */
+  }
+
+  h2 {
+    font-size: 1.25rem; /* Reduce font size for mobile */
+  }
+
+  p {
+    font-size: 0.9rem; /* Reduce font size for mobile */
+  }
+}
