@@ -89,6 +89,3 @@ To install required dependencies, run:
 2. `npm i ngx-cookie-service`  
 
 ---
-
-### **Note:**  
-Replace the bash commands in the installation and dependencies sections as needed by adding the actual code you use.
