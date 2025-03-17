@@ -1,10 +1,10 @@
 package com.tienda.app.controllers;
 
-import com.tienda.app.dtos.auth.CheckTokenRequest;
-import com.tienda.app.dtos.auth.LoginRequest;
-import com.tienda.app.dtos.auth.LoginResponse;
-import com.tienda.app.dtos.auth.RegisterRequest;
+import com.tienda.app.dtos.auth.*;
+import com.tienda.app.exception.InvalidPasswordException;
+import com.tienda.app.exception.UserNotFoundException;
 import com.tienda.app.models.User;
+import com.tienda.app.models.UserInfo;
 import com.tienda.app.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,7 +12,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /*
@@ -82,7 +84,7 @@ public class UserController {
 
     // New endpoint to fetch user profile
     @GetMapping("/profile")
-    public ResponseEntity<User> getUserProfile() {
+    public ResponseEntity< Map<String, Object> > getUserProfile() {
         // Get the authenticated user's username from the security context
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -91,11 +93,36 @@ public class UserController {
         User user = userService.getUserByUsername(username);
 
         if (user != null) {
-            return ResponseEntity.ok(user);
+            // Fetch the associated UserInfo
+            UserInfo userInfo = user.getUserInfo();
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("username", user.getUsername());
+            response.put("role", user.getRole().getRoleName()); // Assuming Role has a getRoleName() method
+            response.put("firstName", userInfo != null ? userInfo.getFirstName() : null);
+            response.put("lastName", userInfo != null ? userInfo.getLastName() : null);
+            response.put("address", userInfo != null ? userInfo.getAddress() : null);
+
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.status(404).body(null); // User not found
         }
     }
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String username = authentication.getName();
+
+            userService.changePassword(username, request.getOldPassword(), request.getNewPassword());
+
+            return ResponseEntity.ok().body(Map.of("message", "Password changed successfully"));
+        } catch (UserNotFoundException e) {
+            return ResponseEntity.status(404).body(Map.of("error", e.getMessage()));
+        } catch (InvalidPasswordException e) {
+            return ResponseEntity.status(400).body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(Map.of("error", "Internal server error"));
+        }
+    }
 }
-
-

@@ -138,8 +138,19 @@ public class UserService implements UserDetailsService {
         Optional<User> userOptional = userRepository.findByUsername(username);
         return userOptional.orElse(null); // Return null if the user is not found
     }
+
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        // Find the user by username
+        User user = this.userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+
+        // Verify the old password
+        if (!this.passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
+
+        // Encode and set the new password
+        user.setPassword(this.passwordEncoder.encode(newPassword));
+        this.userRepository.save(user);
+    }
 }
-
-
-
-

@@ -53,9 +53,18 @@ public class SecurityConfig {
                                 "/users/login",
                                 "/users",
                                 "/users/register",
-                                "/users/check-token"
+                                "/users/check-token",
+                                "/users/profile",
+                                "/users/change-password",
+                                "/products",
+                                "/products/create",
+                                "/products/users/{username}",
+                                "/products/{id}"
+
                         ).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .authenticated()
+
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
