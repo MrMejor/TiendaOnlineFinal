@@ -39,7 +39,7 @@ import java.util.Map;
 *
 * */
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 @CrossOrigin("*")
 public class UserController {
 
