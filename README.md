@@ -1,80 +1,94 @@
- Tipografías
-  - Poppins
-  - Montserrat
-  - Roboto 
-  - Open Sans
-  - Lato
-  - Raleway
-  - Lora
+# 🛍️ TiendaOnlineFinal  
 
-  - Poppins + Montserrat
-  - Raleway + Montserrat (Viceversa)
-  - Open Sans + Poppins
-  - Raleway + Lora
-  - Open Sans + Roboto (Viceversa)
-  - Roboto + Montserrat
-  - Montserrat
-  - Poppins
+A responsive and modern e-commerce web application built with **Angular**. This project provides a smooth shopping experience with a clean UX/UI design.  
 
+## 🚀 Features  
+- ✅ **User Authentication** – Login & Register functionality  
+- ✅ **Product Catalog** – Browse products with a responsive layout  
+- ✅ **Shopping Cart** – Add/remove items easily  
+- ✅ **Dynamic UI** – Optimized for desktop & mobile  
+- ✅ **Angular Power** – Built with modern Angular best practices  
 
-https://hencework.com/theme/hound/rtl-light/
+## 🛠️ Tech Stack  
+- **Frontend:** Angular, TypeScript, HTML, SCSS  
+- **State Management:** Angular Services  
+- **Styling:** SCSS for a sleek design  
+- **IDE:** Developed with ❤️ using various IDEs  
 
+## 📦 Installation  
+Clone the repo and install dependencies: 
+```bash
+git clone https://github.com/MrMejor/TiendaOnlineFinal.git`  
+cd TiendaOnlineFinal`  
+npm install`  
+ng serve`  
+```
+Then open `http://localhost:4200/` in your browser.  
 
-Páginas de BackOffice: 
-  - Inicio
-  - Perfil
-  - Cambiar contraseña
-  - Productos
-  - Cerrar sesión
-  - -------------
-  - Redes sociales
+## ✨ Contributing  
+Want to improve this project? Feel free to fork and submit a pull request!  
 
+## 📜 License  
+This project is licensed under the **MIT License**.  
 
+---
 
+## 🎨 Typography  
 
-App settings:
-   - Segundo botón:
-     - color verde si la pantalla tiene menos de 992px
-     - letra tenga un tamaño de 10px, color blanco 
-     el texto y color del botón negro si la 
-     pantalla es menor a 576px
+This project uses the following fonts:  
+- Poppins  
+- Montserrat  
+- Roboto  
+- Open Sans  
+- Lato  
+- Raleway  
+- Lora  
 
-  
-  - Tercer botón:
-    - el span no debe de aparecer si el dispositivo tiene una pantalla inferior a 576px y el icono tendrá un
-    tamaño de "larger" -> max-width
-    - si la pantalla es superior a 1200px el botón no debe de aparecer -> min-width
+Font combinations include:  
+- Poppins + Montserrat  
+- Raleway + Montserrat  
+- Open Sans + Poppins  
+- And more...  
 
-  - Cuarto botón
-    - Tamaño de width general 200px
-    - pero cuando la pantalla sea inferior a 992px el width será de 80%
+---
 
-  - Quinto botón
-    - El botón desaparecerá en los dispositivos que tengan un mínimo de 
-    769px y 992px y el color de fondo será naranja
+## ⚙️ App Settings & Button Behavior  
 
-  - Sexto botón
-    - El botón por defecto va a tener una altura de 300px
-    - Cuando la pantalla tenga una altura inferior a 700px el botón tendrá una altura de 100px
-    - Si la pantalla tiene ua altura superior a 800px, el botón no debe de aparecer
+- **BackOffice Pages:**  
+  - Inicio  
+  - Perfil  
+  - Cambiar contraseña  
+  - Productos  
+  - Cerrar sesión  
+  - Redes sociales  
 
+- **Button behavior based on screen size:**  
+  - **Second button:** Green on `<992px`, Black with white text on `<576px`  
+  - **Third button:** Span hidden on `<576px`, Button hidden on `>1200px`  
+  - **Fourth button:** `200px` width, changes to `80%` on `<992px`  
+  - **Fifth button:** Hidden between `769px-992px`, background color orange  
+  - **Sixth button:** Default height `300px`, reduces to `100px` `<700px`, disappears `>800px`  
 
+---
 
-  
+## 📱 Breakpoints  
 
-Puntos de ruptura:
-  -> Móviles muy pequeños se encuentran entre los 350px-375px de ancho -> Nosotros lo haríamos de forma manual en el css
-  -> tamaño medio de móviles -> 576px -> sm
-  -> Móviles más grandes y tablets pequeñas -> 769px -> md
-  -> Móviles (la mayoría) en landscape y tablets grandes -> 992px -> lg
-  -> Otras tablets (iPads, entre otros) y portátiles con pantallas pequeñas (13', 14') -> 1200px -> xl
-  -> Ordenadores con pantallas grandes -> 1400px -> xxl
-  -> A partir de 1400px cualquier tipo de pantalla grande
+- Mobile (Small): `350px-375px`  
+- Mobile (Medium): `576px (sm)`  
+- Tablets & Large Mobiles: `769px (md)`  
+- Landscape Mobiles & Large Tablets: `992px (lg)`  
+- Small Laptops & iPads: `1200px (xl)`  
+- Large Screens: `1400px+ (xxl)`  
 
+---
 
+## 📦 Dependencies  
 
-Dependencias usadas para gráficos:
-   - npm install chart.js ng2-charts
+To install required dependencies, run:  
+1. `npm install chart.js ng2-charts`  
+2. `npm i ngx-cookie-service`  
 
-Dependencia para los tokens en cookies:
-  - npm i ngx-cookie-service
+---
+
+### **Note:**  
+Replace the bash commands in the installation and dependencies sections as needed by adding the actual code you use.
